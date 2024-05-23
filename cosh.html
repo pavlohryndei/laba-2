@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="stylecar.css" />
+
+    <style>
+      /* Your existing CSS */
+      /* Added styles for checkbox and total */
+      #cartItems {
+        list-style: none;
+        padding: 0;
+      }
+
+      #cartItems li {
+        display: none;
+      }
+
+      #cartItems input:checked ~ .car-details {
+        display: block;
+      }
+
+      #totalAmount {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Your existing HTML -->
+
+    <div id="cartModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Кошик</h2>
+        <ul id="cartItems">
+          <!-- Each product with a checkbox -->
+          <li>
+            <input type="checkbox" id="product1" />
+            <label for="product1">Ford Focus - $2000</label>
+            <div class="car-details">
+              <!-- Details of the car -->
+              <p>Кількість кс: 150</p>
+              <p>Рік випуску: 2018</p>
+              <p>Обєм: 3,0</p>
+              <p>Пробіг: 280 тис</p>
+            </div>
+          </li>
+        </ul>
+        <!-- Display total amount -->
+        <div id="totalAmount">$0</div>
+      </div>
+    </div>
+
+    <!-- Your existing script tags -->
+    <script src="script.js"></script>
+
+    <script>
+      // JavaScript for updating total amount
+      const checkboxes = document.querySelectorAll(
+        '#cartItems input[type="checkbox"]'
+      );
+      const totalAmount = document.getElementById("totalAmount");
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", function () {
+          let total = 0;
+          checkboxes.forEach((cb) => {
+            if (cb.checked) {
+              const price = parseFloat(
+                cb.nextElementSibling.textContent.split("$")[1]
+              );
+              total += price;
+            }
+          });
+          totalAmount.textContent = `$${total}`;
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>American auto</title>
+    <link rel="icon" href="./imgs/carlogo.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #670289fb;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        border-radius: 20px;
+      }
+      #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+      #modal:target,
+      #overlay:target {
+        display: block;
+      }
+      #subscriptionModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+
+      #subscriptionModalContent {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fafafa;
+        padding: 20px;
+        text-align: center;
+      }
+
+      #adModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+      }
+
+      #adModalContent {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img class="logoImg" src="./imgs/carlogo.png" alt="logo" />
+      </div>
+      <nav class="links">
+        <a href="index2.html" class="current-page">Головна</a>
+        <a href="cartravel.html">Забронювати авто</a>
+        <a href="about.html">Про нас</a>
+        <a href="rewu.html">Відгуки</a>
+        <a href="news.html">Новини</a>
+        <a href="lol.html">Авто</a>
+      </nav>
+      <div class="search-box">
+        <input type="text" placeholder="Search" />
+        <button type="submit">Go</button>
+      </div>
+    </header>
+    <div id="modal">
+      <div id="modal-content">
+        <h2>Підписка на повідомлення</h2>
+        <p>
+          Приєднуйтесь до наших повідомлень для отримання оновлень та
+          спеціальних пропозицій.
+        </p>
+        <button id="accept-btn">Прийняти</button>
+        <button id="reject-btn">Відхилити</button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var modal = document.getElementById("modal");
+        var acceptBtn = document.getElementById("accept-btn");
+        var rejectBtn = document.getElementById("reject-btn");
+
+        if (!localStorage.getItem("subscriptionAccepted")) {
+          setTimeout(function () {
+            modal.style.display = "block";
+          }, 5000);
+        }
+
+        acceptBtn.addEventListener("click", function () {
+          modal.style.display = "none";
+          localStorage.setItem("subscriptionAccepted", true);
+        });
+
+        rejectBtn.addEventListener("click", function () {
+          modal.style.display = "none";
+        });
+      });
+    </script>
+
+    <div id="adModal">
+      <div id="adModalContent">
+        <h2>Спеціальна пропозиція!</h2>
+        <p>Знижка 20% на всі товари!</p>
+        <button id="closeButton" disabled>
+          Закрити (<span id="countdown">5</span>)
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var adModal = document.getElementById("adModal");
+        var closeButton = document.getElementById("closeButton");
+        var countdownDisplay = document.getElementById("countdown");
+        var countdown = 5;
+
+        function showAdModal() {
+          setTimeout(function () {
+            adModal.style.display = "block";
+
+            var timer = setInterval(function () {
+              countdown--;
+              countdownDisplay.textContent = countdown;
+
+              if (countdown <= 0) {
+                clearInterval(timer);
+                closeButton.disabled = false;
+              }
+            }, 1000);
+          }, 4000);
+        }
+
+        showAdModal();
+
+        closeButton.addEventListener("click", function () {
+          adModal.style.display = "none";
+        });
+      });
+    </script>
+    <div class="cong">
+      <h1>Ласкаво просимо до нашого дилерського центру "Auto Care"</h1>
+      <h2>Знайдіть своє ідеальне авто вже зараз!</h2>
+      <p>
+        Ласкаво просимо до найкращого місця для вибору та придбання вашого
+        ідеального автомобіля. Наша компанія спеціалізується на продажу нових та
+        б/у автомобілів, надаючи широкий вибір моделей, марок та цінових
+        категорій. Незалежно від того, чи ви шукаєте сімейний автомобіль,
+        спортивний купе чи вантажівку для бізнесу, у нас є ідеальний варіант для
+        кожного.
+      </p>
+    </div>
+    <div class="picture">
+      <div class="picture-container">
+        <img src="./imgs/american_cars.jpg" alt="" />
+        <h3>
+          Американські автомобілі відомі своєю величезною різноманітністю, що
+          включає легкові автомобілі, пікапи, вантажівки та спортивні
+          автомобілі. Бренди, такі як Ford, Chevrolet, и Jeep, мають довгу
+          історію і визнану репутацію в галузі виробництва автомобілів. В
+          останні роки американські автовиробники, зокрема Tesla, зосереджують
+          увагу на створенні електричних автомобілів з високою потужністю та
+          дальністю подорожей. Американські автомобілі часто відзначаються
+          великими розмірами та міцністю, що робить їх популярними серед
+          покупців, які шукають надійний автомобіль для важких умов
+          експлуатації. Інновації в області безпеки та розваги, такі як системи
+          безпеки, сучасні інфотейнмент-системи та системи автопілоту, активно
+          впроваджуються в американських автомобілях для поліпшення комфорту та
+          безпеки водіїв і пасажирів.
+        </h3>
+      </div>
+    </div>
+    <div class="picture">
+      <div class="picture-container">
+        <img src="./imgs/Car_of_the_Year.JPG" alt="" />
+        <h3>
+          Європейські автомобілі славляться своєю вишуканістю та дизайном, в
+          якому поєднуються стиль та функціональність. В Європі розташовані такі
+          відомі автовиробники, як Volkswagen, BMW, Mercedes-Benz, Audi, та
+          Volvo, які мають багатий спадок і виробляють автомобілі різних класів
+          і стилів. Європейські автовиробники активно працюють над впровадженням
+          новітніх технологій в автомобільну галузь, таких як автономність,
+          системи безпеки та підключеність. Висока якість виготовлення та
+          розробка двигунів, які поєднують високий рівень продуктивності та
+          ефективність, роблять європейські автомобілі популярними серед
+          широкого кола клієнтів. Європейські автовиробники також відомі своєю
+          спрямованістю на створення автомобілів з низьким викидом CO2 та
+          розвитком електричних автомобілів, які відповідають сучасним
+          екологічним стандартам.
+        </h3>
+      </div>
+    </div>
+    <div class="picture">
+      <div class="picture-container">
+        <img src="./imgs/jdm-cars.jpg" alt="" />
+        <h3>
+          Японські автомобілі відомі своєю надійністю і високою якістю
+          виготовлення, що робить їх популярними по всьому світу. Бренди, такі
+          як Toyota, Honda, Nissan, та Subaru, мають великий вплив на глобальну
+          автомобільну індустрію. Японські автовиробники відомі своєю
+          інноваційністю, особливо в розробці гібридних та електричних
+          автомобілів, які сприяють екологічно чистій їзді. Вишуканість та
+          зручність внутрішнього оформлення, а також технології для підвищення
+          комфорту пасажирів, є характерними рисами багатьох японських
+          автомобілів. Японські автомобілі також відзначаються високою
+          ефективністю пального споживання, що робить їх привабливими для
+          економічних водіїв та тих, хто прагне знизити вплив на навколишнє
+          середовище.
+        </h3>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="logo">
+        <img class="logo-img" src="./imgs/carlogo.png" alt="" />
+      </div>
+      <ul class="footer-ul">
+        <li>Terms and Condidtions</li>
+        <li>Privacy Policy</li>
+        <li>Cookie Policy</li>
+      </ul>
+    </footer>
+    <div class="scroll-to-top"><a id="scroll-top" href="#navigation">↑</a></div>
+  </body>
+</html>

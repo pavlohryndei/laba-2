@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Statistics</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <label for="chartType">Оберіть тип графіку:</label>
+    <select id="chartType" onchange="changeChart()">
+      <option value="pie">Кругова діаграма</option>
+      <option value="bar">Стовпчикова діаграма</option>
+      <option value="line">Графік</option>
+    </select>
+
+    <div
+      id="pieChartContainer"
+      style="display: none; width: 200px; height: 200px"
+    >
+      <canvas id="pieChart" width="200" height="200"></canvas>
+    </div>
+    <div
+      id="barChartContainer"
+      style="display: none; width: 200px; height: 200px"
+    >
+      <canvas id="barChart" width="200" height="200"></canvas>
+    </div>
+    <div
+      id="lineChartContainer"
+      style="display: none; width: 200px; height: 200px"
+    >
+      <canvas id="lineChart" width="200" height="200"></canvas>
+    </div>
+
+    <script>
+      function changeChart() {
+        const chartType = document.getElementById("chartType").value;
+        hideAllCharts();
+        if (chartType === "pie") {
+          document.getElementById("pieChartContainer").style.display = "block";
+          buildPieChart();
+        } else if (chartType === "bar") {
+          document.getElementById("barChartContainer").style.display = "block";
+          buildBarChart();
+        } else if (chartType === "line") {
+          document.getElementById("lineChartContainer").style.display = "block";
+          buildLineChart();
+        }
+      }
+
+      function hideAllCharts() {
+        document.getElementById("pieChartContainer").style.display = "none";
+        document.getElementById("barChartContainer").style.display = "none";
+        document.getElementById("lineChartContainer").style.display = "none";
+      }
+
+      let cartData = JSON.parse(localStorage.getItem("cartData")) || [];
+
+      function updateDataAndCharts(newCartData) {
+        cartData = newCartData;
+        updateCharts();
+      }
+
+      function updateCharts() {
+        const totalQuantity = cartData.reduce(
+          (acc, item) => acc + item.quantity,
+          0
+        );
+        const productTypes = {};
+        cartData.forEach((item) => {
+          if (!productTypes[item.title]) {
+            productTypes[item.title] = item.quantity / totalQuantity;
+          } else {
+            productTypes[item.title] += item.quantity / totalQuantity;
+          }
+        });
+
+        buildPieChart(productTypes, totalQuantity);
+        buildBarChart(productTypes, totalQuantity);
+        buildLineChart(productTypes, totalQuantity);
+      }
+
+      function buildPieChart(productTypes, totalQuantity) {
+        const pieChartCanvas = document
+          .getElementById("pieChart")
+          .getContext("2d");
+        const pieChart = new Chart(pieChartCanvas, {
+          type: "pie",
+          data: {
+            labels: Object.keys(productTypes).map(
+              (title) => `${title} (${Math.round(productTypes[title] * 100)}%)`
+            ),
+            datasets: [
+              {
+                data: Object.values(productTypes).map((value) => value * 100),
+                backgroundColor: [
+                  "red",
+                  "blue",
+                  "green",
+                  "yellow",
+                  "purple",
+                  "black",
+                ],
+              },
+            ],
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Popular Products",
+            },
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function buildBarChart(productTypes, totalQuantity) {
+        const barChartCanvas = document
+          .getElementById("barChart")
+          .getContext("2d");
+        const barChart = new Chart(barChartCanvas, {
+          type: "bar",
+          data: {
+            labels: Object.keys(productTypes).map(
+              (title) => `${title} (${Math.round(productTypes[title] * 100)}%)`
+            ),
+            datasets: [
+              {
+                label: "Popularity",
+                data: Object.values(productTypes).map((value) => value * 100),
+                backgroundColor: [
+                  "red",
+                  "blue",
+                  "green",
+                  "yellow",
+                  "purple",
+                  "black",
+                ],
+              },
+            ],
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Popular Products",
+            },
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                    callback: function (value) {
+                      return value + "%";
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        });
+      }
+
+      function buildLineChart(productTypes, totalQuantity) {
+        const lineChartCanvas = document
+          .getElementById("lineChart")
+          .getContext("2d");
+        const lineChart = new Chart(lineChartCanvas, {
+          type: "line",
+          data: {
+            labels: Object.keys(productTypes).map(
+              (title) => `${title} (${Math.round(productTypes[title] * 100)}%)`
+            ),
+            datasets: [
+              {
+                label: "Popularity",
+                data: Object.values(productTypes).map((value) => value * 100),
+                borderColor: "blue",
+                fill: false,
+              },
+            ],
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Popular Products",
+            },
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                    callback: function (value) {
+                      return value + "%";
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        });
+      }
+
+      updateCharts();
+
+      window.addEventListener("storage", function (event) {
+        if (event.key === "cartData") {
+          updateDataAndCharts(JSON.parse(event.newValue));
+        }
+      });
+    </script>
+  </body>
+</html>

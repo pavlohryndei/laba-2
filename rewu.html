@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="icon" href="./imgs/carlogo.png" />
+    <link rel="stylesheet" href="style-rewiew.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #670289fb;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        border-radius: 20px;
+      }
+      #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+      #modal:target,
+      #overlay:target {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div id="navigation" class="logo">
+        <img src="./imgs/carlogo.png" alt="" />
+      </div>
+      <nav class="links">
+        <a href="index2.html">Головна</a>
+        <a href="cartravel.html">Забронювати авто</a>
+        <a href="about.html">Про нас</a>
+        <a href="rewu.html" class="current-page">Відгуки</a>
+      </nav>
+      <div class="search-box">
+        <input type="text" placeholder="Search" />
+        <button type="submit">Go</button>
+      </div>
+      <div class="button">
+        <a href="#modal">Зареєструватись</a>
+        <div id="modal">
+          <h2>Реєстрація</h2>
+          <form>
+            <div>
+              <label for="name">Name:</label>
+              <input id="name" type="text" placeholder="Name" />
+            </div>
+            <div>
+              <label for="last-name">Last-Name:</label>
+              <input id="last-name" type="text" placeholder="Last-Name" />
+            </div>
+            <div>
+              <label for="email">Email:</label>
+              <input id="email" type="text" placeholder="Email" />
+            </div>
+            <div>
+              <label for="password">Password:</label>
+              <input
+                id="password"
+                type="password"
+                maxlength="12"
+                minlength="6"
+                placeholder="Password"
+              />
+            </div>
+            <div>
+              <label for="phone">Phone:</label>
+              <input id="phone" type="tel" placeholder="Phone" />
+            </div>
+            <button class="bup">Зареєструватись</button>
+          </form>
+
+          <a class="bup" href="#" id="close">Закрити</a>
+          <a href="#overlay" id="overlay"></a>
+        </div>
+      </div>
+    </header>
+    <section id="rewiew">
+      <h2>Відгуки про нас</h2>
+      <div class="rewiew-cont2">
+        <div class="rewiew-cont" style="display: block">
+          <div class="image">
+            <img src="./imgs/carlogo.png" alt="Фото відгуку 1" />
+          </div>
+          <h3>Гриндей Христина Дмитрівна</h3>
+          <p>
+            Вражаючий сервіс та професійний підхід! Звертався до дилерського
+            центру авто для придбання нового транспортного засобу, і враження
+            від обслуговування залишились найкращими. Фахівці виявилися вкрай
+            компетентними та допомогли вибрати оптимальний автомобіль за
+            розумною ціною. Весь процес був швидким і зручним, а персонал
+            виявився дуже доброзичливим та уважним до клієнтів. Рекомендую цей
+            дилерський центр для всіх, хто цінує високу якість обслуговування.
+          </p>
+        </div>
+      </div>
+      <div class="rewiew-cont2">
+        <div class="rewiew-cont" style="display: block">
+          <div class="image">
+            <img src="./imgs/carlogo.png" alt="Фото відгуку 1" />
+          </div>
+          <h3>Губенко Владислав</h3>
+          <p>
+            Змушений поділитися негативним досвідом у дилерському центрі. Під
+            час покупки автомобіля виникли серйозні труднощі з відсутністю
+            необхідної інформації від продавців. Здається, що персонал не був
+            належно підготовлений та не зміг відповісти на базові запитання щодо
+            характеристик автомобіля. Також виникли питання із сервісом після
+            купівлі. Надіюсь, що у майбутньому дилерський центр поліпшить свою
+            роботу та забезпечить якісне обслуговування.
+          </p>
+        </div>
+      </div>
+      <div class="rewiew-cont2">
+        <div class="rewiew-cont" style="display: block">
+          <div class="image">
+            <img src="./imgs/carlogo.png" alt="Фото відгуку 1" />
+          </div>
+          <h3>Матвієнко Андрій</h3>
+          <p>
+            Вражаючий вибір та привітний персонал! Задоволений своїм візитом до
+            дилерського центру. Великий вибір автомобілів різних марок і
+            моделей, що дозволило знайти ідеальний варіант. Продавці надали
+            вичерпну інформацію та навіть запропонували тест-драйв. Оформлення
+            покупки пройшло швидко і ефективно. Рекомендую цей центр для тих,
+            хто шукає великий вибір та якісний сервіс.
+          </p>
+        </div>
+      </div>
+      <div class="rewiew-cont2">
+        <div class="rewiew-cont" style="display: block">
+          <div class="image">
+            <img src="./imgs/carlogo.png" alt="Фото відгуку 1" />
+          </div>
+          <h3>Погориловський Олександр</h3>
+          <p>
+            Відмінний сервіс та індивідуальний підхід! Обравши цей дилерський
+            центр для придбання автомобіля, був приємно вражений рівнем
+            обслуговування. Фахівці вислухали всі мої побажання та запитання,
+            пропонуючи оптимальні рішення. Також приємно вражає здатність
+            персоналу пристосовуватися до потреб клієнта та виходити назустріч
+            його очікуванням. Заходження на цей дилерський центр залишає приємні
+            враження, і я рекомендую його тим, хто цінує індивідуальний підхід.
+          </p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

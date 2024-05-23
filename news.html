@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Автоновини та Продаж</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Автоновини</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="index2.html"
+              >Головна <span class="sr-only">(Поточна)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="cartravel.html">Забронювати авто</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">Про нас</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <h2>
+        "Електрифікація на шляху до майбутнього: Представлено Новий Електричний
+        Автомобіль Ford Mustang 2025"
+      </h2>
+
+      <img src="./imgs/poiuyt.jpg" alt="Нова модель авто" class="img-fluid" />
+
+      <p class="mt-3">
+        Ford Mustang 2020 - це спортивний автомобіль, який представляє іконічну
+        модель Mustang в останній версії. Він доступний у різних варіаціях,
+        включаючи купе і кабріолет. Ось деякі основні характеристики Ford
+        Mustang 2020: 1. **Двигун**: Він доступний з різними двигунами,
+        включаючи потужні V6, V8 і економічний турбований чотирьохциліндровий
+        Ecoboost. 2. **Потужність**: Варіюється залежно від обраної модифікації,
+        але найпотужніші моделі можуть виробляти понад 700 кінських сил. 3.
+        **Дизайн**: Mustang 2020 має спортивний і агресивний вигляд, з плавними
+        лініями і характерними елементами дизайну Mustang, такими як грати
+        радіатора та трипелінгові задні фонари. 4. **Технології**: Він оснащений
+        сучасними технологіями, такими як інфотеймент-системи з підтримкою Apple
+        CarPlay і Android Auto, системи безпеки та допомоги водію, і багато
+        іншого. 5. **Продуктивність**: Mustang 2020 пропонує високу рівень
+        продуктивності, зі здатністю до швидкісті і вражаючими характеристиками
+        розгону. Це лише загальний огляд. Якщо вам потрібна додаткова інформація
+        про певну модель або особливості, будь ласка, дайте знати!
+      </p>
+    </div>
+
+    <div class="news-container">
+      <div class="main-content">
+        <div id="selected-news" class="hidden">
+          <span class="close" onclick="closeSelectedNews()">×</span>
+          <h2 id="selected-news-title"></h2>
+          <p id="selected-news-content"></p>
+          <p id="selected-news-date"></p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <h2>Останні новини</h2>
+        <div id="news-list" class="news-list"></div>
+      </div>
+    </div>
+
+    <script>
+      const news = [
+        {
+          title: "Елекрофікація",
+          content: "В 2025 всі Автомобілі будуть елекричними",
+          date: "2024-05-20 10:00",
+        },
+        {
+          title: "Ціни на паливо",
+          content: "Ціни ростуть",
+          date: "2024-05-14 15:30",
+        },
+        {
+          title: "Нова резина",
+          content: "КУпуйте резину тільки у нас",
+          date: "2024-05-18 08:45",
+        },
+        {
+          title: "Автозвук",
+          content: "Якісні динаміки тільки у нас",
+          date: "2024-05-17 12:00",
+        },
+        {
+          title: "Елекрофікація",
+          content: "купуй авто зараз",
+          date: "2024-05-06 10:00",
+        },
+        {
+          title: "Остання новина",
+          content: "сайт закривається",
+          date: "2024-05-07 09:00",
+        },
+      ];
+
+      news.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      function displayNews() {
+        const newsList = document.getElementById("news-list");
+        news.slice(0, 5).forEach((item) => {
+          const listItem = document.createElement("div");
+          listItem.classList.add("news-item");
+          listItem.textContent = item.title;
+          if (item.title.includes("Важлива")) {
+            listItem.classList.add("bold");
+          }
+          listItem.addEventListener("click", () => {
+            displaySelectedNews(item);
+          });
+          newsList.appendChild(listItem);
+        });
+      }
+
+      function displaySelectedNews(item) {
+        const selectedNews = document.getElementById("selected-news");
+        const titleElement = document.getElementById("selected-news-title");
+        const contentElement = document.getElementById("selected-news-content");
+        const dateElement = document.getElementById("selected-news-date");
+
+        titleElement.textContent = item.title;
+        contentElement.textContent = item.content;
+        dateElement.textContent = item.date;
+
+        selectedNews.classList.remove("hidden");
+      }
+
+      function closeSelectedNews() {
+        const selectedNews = document.getElementById("selected-news");
+        selectedNews.classList.add("hidden");
+      }
+
+      window.addEventListener("DOMContentLoaded", displayNews);
+    </script>
+
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+      &copy; 2023 Новини Auto Care
+    </footer>
+  </body>
+</html>
